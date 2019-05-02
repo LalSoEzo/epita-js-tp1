@@ -8,6 +8,17 @@
 *
 */
 
-const update = () => {};
+import {getState, setState} from "../store";
+
+const update = (oldPic, newPic) => {
+    let pics = getState();
+    let index = pics.findIndex(e => {
+        return e === oldPic;
+    });
+
+    pics.splice(index, 1, newPic);
+
+    setState(pics);
+};
 
 export default update;

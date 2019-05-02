@@ -1,5 +1,7 @@
 import list from "./actions/list";
 import add from "./actions/add";
+import remove from "./actions/remove";
+import update from "./actions/update";
 
 const picturesGridElement = document.getElementById("pictures-grid");
 const pictureInputElement = document.getElementById("picture-url-input");
@@ -13,15 +15,16 @@ const clearInputContents = () => (pictureInputElement.value = "");
 const addPictureHandler = () => {
   const url = getInputContents();
 
-  // FIXME: use your actions functions to add a new picture
+  add(url.trim());
+  refreshGrid();
+
   // FIXME: bonus, trim eventual whitespaces and validate content
 
   clearInputContents();
 };
 
 const refreshGrid = () => {
-  // FIXME: use your functions to get all the elements
-  const items = [];
+  const items = list();
 
   const fragment = document.createDocumentFragment();
 
@@ -30,15 +33,35 @@ const refreshGrid = () => {
 
     const imgElement = clone.querySelector(".picture-item-image");
 
-    // FIXME: set the URL from your Picture model.
-    imgElement.src = "https://picsum.photos/458/354";
+    imgElement.src = i.toString();
 
     const deleteButtonElement = clone.querySelector(
-      ".picture-item-delete-button"
+        ".picture-item-delete-button"
     );
 
-    // FIXME: use your functions to delete the selected element
-    deleteButtonElement.addEventListener("click", () => {});
+    deleteButtonElement.addEventListener("click", () => {
+      remove(i);
+      refreshGrid();
+    });
+
+    const updateButtonElement = clone.querySelector(
+        ".picture-item-update-button"
+    );
+
+    updateButtonElement.addEventListener("click", () => {
+      let modal = document.getElementById('updateModal');
+
+      modal.style.display = "block";
+
+      //refreshGrid();
+    });
+
+    const closeBtn = document.getElementsByClassName("close")[0];
+
+    closeBtn.addEventListener("click", () => {
+      let modal = document.getElementById('updateModal');
+      modal.style.display = "none";
+    });
 
     fragment.appendChild(clone);
   });
@@ -50,3 +73,9 @@ const refreshGrid = () => {
 refreshGrid();
 
 pictureAddButtonElement.addEventListener("click", () => addPictureHandler());
+
+window.addEventListener('click', (e) => {
+  let modal = document.getElementById('updateModal');
+  if (e.target === modal)
+    modal.style.display = "none";
+});

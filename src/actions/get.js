@@ -7,6 +7,11 @@
 *
 */
 
-const get = () => {};
+import {getState} from "../store";
+
+const get = (i) => {
+    let pics = getState();
+    return pics[i];
+};
 
 export default get;

@@ -26,7 +26,8 @@
       <img class="picture-item-image" alt="image">
 
       <div class="caption" style="text-align: center;">
-        <button class="btn btn-danger picture-item-delete-button">delete</button>
+        <button class="btn btn-danger picture-item-delete-button">Delete</button>
+        <button id="updateBtn" class="btn btn-danger picture-item-update-button">Update</button>
       </div>
     </div>
   </template>
@@ -59,6 +60,19 @@
     </div>
   </div>
 
+  <div id="updateModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <label>Nouveau lien</label>
+
+      <div class="input-group">
+        <input id="a" type="text" size="40" class="form-control" placeholder="Insert a picture URL" />
+        <div class="input-group-addon">
+          <button id="updatePicBtn" class="btn btn-info" type="button">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!--
       This HTML file is a template.

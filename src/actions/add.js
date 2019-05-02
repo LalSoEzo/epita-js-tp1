@@ -9,6 +9,20 @@
 *
 */
 
-const add = () => {};
+import {getState, setState} from "../store";
+
+const add = (items) => {
+    let pics = getState();
+
+    if (typeof items === "string")
+        pics.push(items);
+    else {
+        items.map(i => {
+            return pics.push(i);
+        })
+    }
+
+    setState(pics);
+};
 
 export default add;
