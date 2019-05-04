@@ -6,6 +6,7 @@ import update from "./actions/update";
 const picturesGridElement = document.getElementById("pictures-grid");
 const pictureInputElement = document.getElementById("picture-url-input");
 const pictureAddButtonElement = document.getElementById("picture-add-button");
+const modalUpdateElement = document.getElementById("updateModal");
 
 const pictureItemTemplate = document.getElementById("picture-item-template");
 
@@ -18,9 +19,17 @@ const addPictureHandler = () => {
   add(url.trim());
   refreshGrid();
 
-  // FIXME: bonus, trim eventual whitespaces and validate content
-
   clearInputContents();
+};
+
+const updatePicHandler = (e) => {
+  let newPic = document.getElementById("update-pic-url");
+
+  update(e, newPic.value);
+
+  modalUpdateElement.style.display = "none";
+
+  refreshGrid();
 };
 
 const refreshGrid = () => {
@@ -49,11 +58,13 @@ const refreshGrid = () => {
     );
 
     updateButtonElement.addEventListener("click", () => {
-      let modal = document.getElementById('updateModal');
+      modalUpdateElement.style.display = "block";
 
-      modal.style.display = "block";
-
-      //refreshGrid();
+      let updatePicBtn = document.getElementById("updatePicBtn");
+      updatePicBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        updatePicHandler(i);
+      });
     });
 
     const closeBtn = document.getElementsByClassName("close")[0];

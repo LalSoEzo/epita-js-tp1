@@ -16,9 +16,14 @@ const update = (oldPic, newPic) => {
         return e === oldPic;
     });
 
-    pics.splice(index, 1, newPic);
+    console.log(index);
+
+    if (index >= 0)
+        pics.splice(index, 1, newPic);
 
     setState(pics);
+
+    console.log(pics);
 };
 
 export default update;
